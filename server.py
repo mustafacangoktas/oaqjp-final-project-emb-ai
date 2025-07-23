@@ -10,10 +10,11 @@ def home():
 @app.route('/emotionDetector')
 def emotion_detector_route():
     text = request.args.get('textToAnalyze', '')
-    if not text:
-        return jsonify({"error": "No text provided"}), 400
 
     result = emotion_detector(text)
+
+    if result['dominant_emotion'] is None:
+        return "Invalid text! Please try again!"
 
     return (
         f"For the given statement, the system response is "
