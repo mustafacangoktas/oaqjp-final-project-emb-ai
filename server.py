@@ -1,14 +1,25 @@
-from flask import Flask, request, jsonify, render_template
+"""
+Flask server module for emotion detection application.
+"""
+
+from flask import Flask, request, render_template
 from EmotionDetection import emotion_detector
 
 app = Flask(__name__)
 
 @app.route('/')
 def home():
+    """
+    Render the homepage with the input form.
+    """
     return render_template('index.html')
 
 @app.route('/emotionDetector')
 def emotion_detector_route():
+    """
+    Handle emotion detection request.
+    Extracts text from query parameters, passes it to the emotion detector, and returns the formatted response.
+    """
     text = request.args.get('textToAnalyze', '')
 
     result = emotion_detector(text)
